@@ -1,0 +1,47 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["20", "22"]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Install
+        run: npm ci
+      - name: Test (banner look contract)
+        run: npm test
+      - name: Banner prompts build for every brief
+        run: node banner/build-prompt.mjs --print wazuh-mcp > /dev/null && echo "ok"
+
+  content-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          path: lidless-fleet-kit
+      - uses: actions/checkout@v5
+        with:
+          repository: solomonneas/content-guard
+          ref: v0.1.1
+          path: content-guard
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Scan
+        run: |
+          cd lidless-fleet-kit
+          PYTHONPATH=../content-guard/src python -m content_guard scan . \
+            --policy ../content-guard/policies/public-repo.json

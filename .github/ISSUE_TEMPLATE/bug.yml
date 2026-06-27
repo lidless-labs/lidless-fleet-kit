@@ -1,0 +1,56 @@
+name: Bug report
+description: Something is broken in the kit, such as the OG renderer, the banner prompt builder, the SEO head, version sync, or fleet-sync.
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - banner pipeline (build-prompt / style / briefs / crop-bands)
+        - OG card (render.mjs / template.html / sites.json)
+        - SEO head (Seo.astro / seo.ts / seo-validate)
+        - version sync (sync-versions / sites.config.json)
+        - fleet-sync routine
+        - docs
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you run, and what did you expect versus what you got?
+      placeholder: |
+        I ran `npm run banner -- wazuh-mcp` and got X. I expected Y.
+    validations:
+      required: true
+  - type: input
+    id: node
+    attributes:
+      label: Node version
+      description: Output of `node --version`.
+      placeholder: v22.x
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS
+      placeholder: Ubuntu 24.04, macOS 14.5, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Full output
+      description: Paste the full stdout + stderr.
+      render: shell
+    validations:
+      required: false
+  - type: checkboxes
+    id: scrub
+    attributes:
+      label: Pre-flight
+      options:
+        - label: I have scrubbed any personal hostnames, tokens, or paths from the report.
+          required: true

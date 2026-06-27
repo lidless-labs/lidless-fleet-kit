@@ -1,0 +1,16 @@
+{
+  "title": "lidless-fleet-kit",
+  "width": 82,
+  "height": 17,
+  "padding": 16,
+  "steps": [
+    {
+      "command": "npm run banner -- wazuh-mcp",
+      "output": "A great horned owl analyst flagging one critical alert on a Wazuh SIEM\ndashboard: a table of alert rows with severity dots ...  [ WAZUH-MCP · SIEM ]\n(text-only prompt for gpt-image-2; anchors are human style targets, never inputs)\n"
+    },
+    {
+      "command": "npm test",
+      "output": "ok  banner/style.test.mjs        palette, exclusions, anchors\nok  banner/briefs.test.mjs       26 briefs, valid anchors, kicker grammar\nok  banner/anchors.test.mjs      frozen anchor checksums\nok  banner/build-prompt.test...  prompt assembly + grammar\nok  banner/wiring.test.mjs       scripts + ILLUSTRATION.md\n# tests 21   # pass 21   # fail 0\n"
+    }
+  ]
+}

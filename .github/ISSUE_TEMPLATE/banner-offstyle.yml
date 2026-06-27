@@ -1,0 +1,41 @@
+name: Banner off-style
+description: A generated banner drifts from the contract (wrong palette, decorative texture, an illegible or mangled dashboard, off-aspect).
+labels: ["banner", "rollout"]
+body:
+  - type: input
+    id: slug
+    attributes:
+      label: Tool slug
+      description: The brief key in banner/briefs.json.
+      placeholder: mitre-mcp
+    validations:
+      required: true
+  - type: dropdown
+    id: drift
+    attributes:
+      label: What drifted
+      options:
+        - amber instead of cyan / second hero color
+        - decorative texture (honeycomb / mesh / dotted-grid) instead of a legible UI
+        - mangled or unreadable label text
+        - owl anatomy / extra limbs / broken pen
+        - wrong aspect or letterbox bands not cropped
+        - real-looking data instead of placeholders
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: Detail
+      description: What you see versus what banner/style.json calls for. Attach the banner if you can.
+    validations:
+      required: true
+  - type: checkboxes
+    id: pipeline
+    attributes:
+      label: Pipeline
+      options:
+        - label: The banner was built from `npm run banner -- <slug>` (not a hand-written prompt).
+          required: false
+        - label: The render was normalized through `banner/crop-bands.py`.
+          required: false
