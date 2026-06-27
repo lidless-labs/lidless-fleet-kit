@@ -1,0 +1,15 @@
+{
+  "palette": { "ink": "#0a0e15", "cyan": "#38bdf8", "cream": "#f5f2ea", "slateNavy": "#1d2733" },
+  "frame": {
+    "aspect": "21:9 (about 2048x877)",
+    "renderNote": "gpt-image-2 renders at 2048x1152 (16:9) and letterboxes the 21:9 painting with flat cream bands top and bottom. Always normalize the render through crop-bands.py, which strips the bands and outputs the canonical 2048x878 (21:9) banner. Never ship the raw 2048x1152 render.",
+    "kickerGrammar": "[ PROJECT · CATEGORY ]",
+    "subjectCoverage": "45-60% of the frame, off-center",
+    "negativeSpaceMin": "25%"
+  },
+  "styleLanguage": "Loose hand-painted watercolor on a cream paper ground: wet-on-wet washes, soft feathered edges, slate-navy ink linework. One clear focal subject - a great horned owl interacting with one legible security, network, or homelab interface (a table, matrix, map, chart, or equipment rack). The owl is painted loose; the interface is drawn clearly enough to read its labels. Texture comes from soft edge bleed in open washes, never from packing small repeating shapes.",
+  "exclusionClause": "No honeycomb, no hexagonal or tiled decorative pattern, no repeating cells used as background texture, no mosaic or mesh, no brickwork, no barnacle or lichen speckle, no constellation of small glowing dots, no dense decorative dotted-grid backdrop. The dashboard, table, or matrix in the scene is the legible subject, not a repeating texture. Not an over-rendered digital painting. Not a dark cluttered diorama.",
+  "contentSafety": "Any text or labels must be obvious placeholders only: no real or realistic personal names, dates of birth, emails, or phone numbers; no real hostnames, secrets, tokens, or API keys; no private IP addresses (if an IP is needed use only 192.0.2.x example addresses). Keep all label text generic and clearly illustrative.",
+  "anchors": ["jellyfin", "tokenjuice", "usage-tracker"],
+  "anchorDir": "anchors-v1"
+}

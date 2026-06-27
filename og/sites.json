@@ -1,0 +1,24 @@
+{
+  "lidless-site": {
+    "kicker": "LIDLESS LABS · SOC · NETWORK · HOMELAB",
+    "wordmark": "LIDLESS",
+    "motto": "Constant <span class=\"green\">Vigilance.</span>",
+    "sub": "Open-source MCP servers and dashboards that wire your SIEM, IDS, threat intel, network monitoring, and hypervisor into an AI client.",
+    "foot": [
+      { "live": true, "t": "12 TOOLS WATCHING" },
+      { "b": "MCP", "t": "+ DASHBOARDS" },
+      { "t": "OPEN SOURCE" },
+      { "t": "lidless.dev" }
+    ],
+    "panel": {
+      "title": "Watch Status",
+      "rows": [
+        { "k": "security / soc", "v": "7 online", "ok": true },
+        { "k": "network", "v": "3 online", "ok": true },
+        { "k": "homelab", "v": "2 online", "ok": true },
+        { "k": "uptime", "v": "always" }
+      ],
+      "foot": "The eye does not close"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "_comment": "Lidless is a single hub repo (lidless-site / lidless.dev), not a fleet of subdomains. This kit syncs the 12 tool versions into that one site. Each entry under `tools` maps a tool slug (matching src/lib/tools.ts) to its GitHub repo and version source. source types: gh-release (latest GitHub release tag, the v prefix is inferred from the current value), manual (never auto-touched, used for a tool with no release yet). The synced versions feed the VERSIONS map in src/lib/tools.ts; SITE.version in src/lib/site.ts stays manual ('Wave 1', the hub's own marketing label). The MCP tools live under the lidless-labs org; watchtower and the hub site itself remain under solomonneas.",
+  "site": "lidless-site",
+  "repo": "solomonneas/lidless-site",
+  "url": "https://lidless.dev",
+  "tools": {
+    "wazuh-mcp": { "repo": "lidless-labs/wazuh-mcp", "version": { "source": "gh-release" } },
+    "misp-mcp": { "repo": "lidless-labs/misp-mcp", "version": { "source": "gh-release" } },
+    "suricata-mcp": { "repo": "lidless-labs/suricata-mcp", "version": { "source": "gh-release" } },
+    "thehive-mcp": { "repo": "lidless-labs/thehive-mcp", "version": { "source": "gh-release" } },
+    "cortex-mcp": { "repo": "lidless-labs/cortex-mcp", "version": { "source": "gh-release" } },
+    "mitre-mcp": { "repo": "lidless-labs/mitre-mcp", "version": { "source": "gh-release" } },
+    "zeek-mcp": { "repo": "lidless-labs/zeek-mcp", "version": { "source": "gh-release" } },
+    "librenms-mcp": { "repo": "lidless-labs/librenms-mcp", "version": { "source": "gh-release" } },
+    "n8n-ops-mcp": { "repo": "lidless-labs/n8n-ops-mcp", "version": { "source": "gh-release" } },
+    "watchtower": { "repo": "solomonneas/watchtower", "version": { "source": "manual" } },
+    "proxmox-mcp": { "repo": "lidless-labs/proxmox-mcp", "version": { "source": "gh-release" } },
+    "adguard-mcp": { "repo": "lidless-labs/adguard-mcp", "version": { "source": "gh-release" } }
+  }
+}

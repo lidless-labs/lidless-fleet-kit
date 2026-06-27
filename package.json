@@ -1,0 +1,19 @@
+{
+  "name": "lidless-fleet-kit",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Shared dark-watch theme, OG preview generator, SEO head, and routine tool-version sync for the Lidless Labs hub site.",
+  "scripts": {
+    "og": "node og/render.mjs",
+    "banner": "node banner/build-prompt.mjs",
+    "test": "node --test banner/*.test.mjs",
+    "sync": "node bin/sync-versions.mjs",
+    "sync:dry": "node bin/sync-versions.mjs --dry",
+    "sync:fleet": "bin/fleet-sync.sh",
+    "fleet": "bin/fleet-sync.sh"
+  },
+  "dependencies": {
+    "playwright-core": "^1.49.0"
+  }
+}
