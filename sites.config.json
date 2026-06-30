@@ -11,10 +11,10 @@
     "cortex-mcp": { "repo": "lidless-labs/cortex-mcp", "version": { "source": "gh-release" } },
     "mitre-mcp": { "repo": "lidless-labs/mitre-mcp", "version": { "source": "gh-release" } },
     "zeek-mcp": { "repo": "lidless-labs/zeek-mcp", "version": { "source": "gh-release" } },
-    "librenms-mcp": { "repo": "lidless-labs/librenms-mcp", "version": { "source": "gh-release" } },
-    "n8n-ops-mcp": { "repo": "lidless-labs/n8n-ops-mcp", "version": { "source": "gh-release" } },
+    "librenms-mcp": { "repo": "lidless-labs/librenmsctl", "version": { "source": "gh-release" } },
+    "n8n-ops-mcp": { "repo": "lidless-labs/n8nctl", "version": { "source": "gh-release" } },
     "watchtower": { "repo": "solomonneas/watchtower", "version": { "source": "manual" } },
     "proxmox-mcp": { "repo": "lidless-labs/proxmox-mcp", "version": { "source": "gh-release" } },
-    "adguard-mcp": { "repo": "lidless-labs/adguard-mcp", "version": { "source": "gh-release" } }
+    "adguard-mcp": { "repo": "lidless-labs/adguardctl", "version": { "source": "gh-release" } }
   }
 }
