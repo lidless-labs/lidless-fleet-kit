@@ -13,10 +13,10 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/actions/workflow/status/lidless-labs/lidless-fleet-kit/ci.yml?branch=main&style=for-the-badge&label=ci" alt="CI status">
-  <img src="https://img.shields.io/badge/node-20%2B-blue?style=for-the-badge&logo=node.js&logoColor=white" alt="Node 20+">
-  <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="MIT license">
-  <img src="https://img.shields.io/badge/runtime%20deps-1-informational?style=for-the-badge" alt="One runtime dep">
+  <img src="https://shieldcn.dev/github/ci/lidless-labs/lidless-fleet-kit.svg?branch=main&workflow=ci.yml" alt="CI status">
+  <img src="https://shieldcn.dev/badge/node-20%2B-blue.svg?logo=node.js&logoColor=white" alt="Node 20+">
+  <img src="https://shieldcn.dev/badge/license-MIT-green.svg" alt="MIT license">
+  <img src="https://shieldcn.dev/badge/runtime%20deps-1-informational.svg" alt="One runtime dep">
 </p>
 
 The look is code. A great horned owl, a cyan accent, a cream-paper watercolor, one canonical OG card, and a SEO head every site inherits. Change it here, re-sync, done.
