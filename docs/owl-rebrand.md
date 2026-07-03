@@ -57,7 +57,7 @@ The favicon and nav echo are already brass-free and need no art change.
 
 ## The owl mark (GitHub org avatar)
 
-Concept draft at `docs/assets/owl-mark.svg`: a geometric great horned owl face on the dark-watch ground, whose two eyes are the existing lidless-eye ring geometry (same radii ratios as the nav mark), with the horn tufts and brow V carrying the silhouette. Code-rendered, so it never drifts and stays crisp at 40 px. This follows the kit's own rule: the look is code.
+The shipped avatar is `docs/assets/owl-avatar.png`: a watercolor great horned owl portrait (gpt-image-2, text-only prompt in the `.prompt.txt` sidecar), cream paper, slate-navy ink, cyan eyes, composed to survive the circular crop and stay legible at 40 px. The geometric mark at `docs/assets/owl-mark.svg` remains as the code-rendered fallback: a great horned owl face whose two eyes are the existing lidless-eye ring geometry (same radii ratios as the nav mark).
 
 For large surfaces (profile README header, site about section), generate a watercolor owl portrait with the existing banner pipeline DNA. Prompt seed, consistent with `banner/style.json`:
 
