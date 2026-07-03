@@ -16,8 +16,10 @@ homelab rack, a DNS log - is the per-tool variable.
 - Palette (`banner/style.json`): ink `#0a0e15`, cyan `#38bdf8`, cream `#f5f2ea`,
   slate-navy ink `#1d2733`. Cyan is the single brand accent.
 - Cast: a great horned owl. The owl is the org identity: the GitHub avatar (the
-  geometric mark in `docs/assets/owl-mark.svg`, whose eyes reuse the nav
-  lidless-eye geometry) and the banner cast. The unsleeping eye stays the site
+  watercolor portrait `docs/assets/owl-avatar.png`, gpt-image-2, prompt sidecar
+  alongside, with the geometric `docs/assets/owl-mark.svg` as the code-rendered
+  fallback mark whose eyes reuse the nav lidless-eye geometry) and the banner
+  cast. The unsleeping eye stays the site
   mark (hero, favicon, nav) and the OG motif; it never becomes the banner
   subject, and the owl never replaces the eye on the site. Neither mark carries
   brass, gold, rivets, or hardware of any kind.
