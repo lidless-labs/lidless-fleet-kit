@@ -13,10 +13,10 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/actions/workflow/status/lidless-labs/lidless-fleet-kit/ci.yml?branch=main&style=for-the-badge&label=ci" alt="CI status">
-  <img src="https://img.shields.io/badge/node-20%2B-blue?style=for-the-badge&logo=node.js&logoColor=white" alt="Node 20+">
-  <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="MIT license">
-  <img src="https://img.shields.io/badge/runtime%20deps-1-informational?style=for-the-badge" alt="One runtime dep">
+  <img src="https://shieldcn.dev/github/ci/lidless-labs/lidless-fleet-kit.svg?branch=main&workflow=ci.yml" alt="CI status">
+  <img src="https://shieldcn.dev/badge/node-20%2B-blue.svg" alt="Node 20+">
+  <img src="https://shieldcn.dev/badge/license-MIT-green.svg" alt="MIT license">
+  <img src="https://shieldcn.dev/badge/runtime%20deps-1-informational.svg" alt="One runtime dep">
 </p>
 
 The look is code. A great horned owl, a cyan accent, a cream-paper watercolor, one canonical OG card, and a SEO head every site inherits. Change it here, re-sync, done.
@@ -31,7 +31,7 @@ The look is code. A great horned owl, a cyan accent, a cream-paper watercolor, o
 
 You market one hub (`lidless.dev`) and the tools it watches over. Four things have to stay consistent and current, and a hand-driven session does all four badly:
 
-- **One OG preview theme.** The link-preview card is rendered from a single dark-watch template (`og/template.html`) and a content map (`og/sites.json`): terminal-dark ground, one signal accent, the lidless-eye motif, the `LIDLESS` wordmark, the `Constant Vigilance.` motto. Change the theme once, regenerate.
+- **One OG preview theme.** The link-preview card is rendered from a single dark-watch template (`og/template.html`) and a content map (`og/sites.json`): terminal-dark ground, one signal accent, the lidless-eye motif, the `LIDLESS` wordmark, the `The eye does not close.` motto. Change the theme once, regenerate.
 - **One banner pipeline.** Every tool's README banner is built from one shared style (`banner/style.json`) plus a per-tool brief (`banner/briefs.json`) into a text-only image prompt: a great horned owl working one legible dashboard, cyan accent, cream watercolor. Frozen anchors and a test suite keep it from drifting. See [Banners](#banners).
 - **One SEO head.** `seo/Seo.astro` + `seo/seo.ts` are the canonical `<head>` (title, description, canonical, Open Graph, Twitter, JSON-LD, theme-color), copied into the site and validated by `bin/seo-validate.mjs`.
 - **One routine.** `bin/fleet-sync.sh` fast-forwards the checkout, syncs tool versions from GitHub releases, regenerates the card, syncs the SEO head, builds, validates, and commits and pushes only if something changed. Safe on a timer; a no-op run touches nothing.
