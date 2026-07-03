@@ -14,7 +14,7 @@
 
 <p align="center">
   <img src="https://shieldcn.dev/github/ci/lidless-labs/lidless-fleet-kit.svg?branch=main&workflow=ci.yml" alt="CI status">
-  <img src="https://shieldcn.dev/badge/node-20%2B-blue.svg" alt="Node 20+">
+  <img src="https://shieldcn.dev/badge/node-20%2B-blue.svg?logo=node.js&logoColor=white" alt="Node 20+">
   <img src="https://shieldcn.dev/badge/license-MIT-green.svg" alt="MIT license">
   <img src="https://shieldcn.dev/badge/runtime%20deps-1-informational.svg" alt="One runtime dep">
 </p>
