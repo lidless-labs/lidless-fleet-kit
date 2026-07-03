@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Lidless Labs owl mark, concept draft.
+       Great horned owl face; the eyes reuse the nav lidless-eye geometry
+       (ring / panel / iris ring / pupil) so the marks read as one family.
+       Palette: ink #0a0e15, slate-navy #1d2733, cyan accent #38bdf8. -->
+  <rect width="512" height="512" fill="#0a0e15"/>
+
+  <!-- horn tufts -->
+  <path d="M78,112 C128,136 166,166 186,198 L140,228 C118,188 96,148 78,112 Z"
+        fill="#1d2733" stroke="#38bdf8" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M434,112 C384,136 346,166 326,198 L372,228 C394,188 416,148 434,112 Z"
+        fill="#1d2733" stroke="#38bdf8" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- brow V -->
+  <path d="M140,228 Q256,180 372,228 L352,258 Q256,220 160,258 Z"
+        fill="#1d2733" stroke="#38bdf8" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- eyes: nav-mark geometry, 1.5x -->
+  <g>
+    <circle cx="166" cy="312" r="75" fill="none" stroke="#38bdf8" stroke-width="9"/>
+    <circle cx="166" cy="312" r="66" fill="#1d2733"/>
+    <circle cx="166" cy="312" r="26" fill="none" stroke="#38bdf8" stroke-width="7"/>
+    <circle cx="166" cy="312" r="11" fill="#38bdf8"/>
+  </g>
+  <g>
+    <circle cx="346" cy="312" r="75" fill="none" stroke="#38bdf8" stroke-width="9"/>
+    <circle cx="346" cy="312" r="66" fill="#1d2733"/>
+    <circle cx="346" cy="312" r="26" fill="none" stroke="#38bdf8" stroke-width="7"/>
+    <circle cx="346" cy="312" r="11" fill="#38bdf8"/>
+  </g>
+
+  <!-- beak -->
+  <path d="M232,394 Q256,382 280,394 L256,452 Z"
+        fill="#1d2733" stroke="#38bdf8" stroke-width="4" stroke-linejoin="round"/>
+</svg>

@@ -31,7 +31,7 @@ The look is code. A great horned owl, a cyan accent, a cream-paper watercolor, o
 
 You market one hub (`lidless.dev`) and the tools it watches over. Four things have to stay consistent and current, and a hand-driven session does all four badly:
 
-- **One OG preview theme.** The link-preview card is rendered from a single dark-watch template (`og/template.html`) and a content map (`og/sites.json`): terminal-dark ground, one signal accent, the lidless-eye motif, the `LIDLESS` wordmark, the `Constant Vigilance.` motto. Change the theme once, regenerate.
+- **One OG preview theme.** The link-preview card is rendered from a single dark-watch template (`og/template.html`) and a content map (`og/sites.json`): terminal-dark ground, one signal accent, the lidless-eye motif, the `LIDLESS` wordmark, the `The eye does not close.` motto. Change the theme once, regenerate.
 - **One banner pipeline.** Every tool's README banner is built from one shared style (`banner/style.json`) plus a per-tool brief (`banner/briefs.json`) into a text-only image prompt: a great horned owl working one legible dashboard, cyan accent, cream watercolor. Frozen anchors and a test suite keep it from drifting. See [Banners](#banners).
 - **One SEO head.** `seo/Seo.astro` + `seo/seo.ts` are the canonical `<head>` (title, description, canonical, Open Graph, Twitter, JSON-LD, theme-color), copied into the site and validated by `bin/seo-validate.mjs`.
 - **One routine.** `bin/fleet-sync.sh` fast-forwards the checkout, syncs tool versions from GitHub releases, regenerates the card, syncs the SEO head, builds, validates, and commits and pushes only if something changed. Safe on a timer; a no-op run touches nothing.

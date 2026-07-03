@@ -9,15 +9,15 @@ keep the two in sync.
 Lidless is a watch console, not a marketing page. One idea carries the brand: an
 eye that never closes, keeping watch over your SOC, network, and homelab. The
 surface reads like a calm, always-on monitoring console: terminal-dark ground, a
-single signal-green accent, monospace labels, and quiet hairline grids.
+single electric-blue accent, monospace labels, and quiet hairline grids.
 
 - **Dark only.** The unsleeping eye does not switch to a day mode. There is no
   light theme; `color-scheme: dark`.
 - **The eye is the logo.** An almond aperture with an iris ring, a pupil, and a
   single watch glint. It appears in the favicon, the nav, and the OG card. Do not
   redraw it ad hoc; reuse the SVG.
-- **Vocabulary, used sparingly.** "Constant vigilance", "watch", "the eye", "keeps
-  watch", "always on". Say it in copy; never decorate with it.
+- **Vocabulary, used sparingly.** "The eye does not close", "watch", "the eye",
+  "keeps watch", "always on". Say it in copy; never decorate with it.
 
 ## Tokens
 
@@ -26,28 +26,32 @@ in components.
 
 | Token | Value | Role |
 |---|---|---|
-| `--bg` | `#0a0a0c` | page ground |
-| `--bg-panel` | `#101216` | cards, panels |
-| `--bg-panel-2` | `#0d0f13` | alternating section bands, terminal panels |
-| `--text` | `#d7dde3` | body text |
-| `--text-muted` | `#8b95a1` | secondary text, standfirsts |
-| `--text-dim` | `#5e6873` | captions, footers, mono labels |
-| `--accent` | `#22c55e` | the signal green; links, kickers, the eye |
-| `--accent-dim` | `#15803d` | hover borders, pressed states |
+| `--bg` | `#0a0e15` | page ground |
+| `--bg-panel` | `#0d1119` | cards, panels |
+| `--bg-panel-2` | `#111824` | alternating section bands, terminal panels |
+| `--white` | `#f4f7fa` | headlines, the wordmark |
+| `--text` | `#cdd6df` | body text |
+| `--text-muted` | `#818c9b` | secondary text, standfirsts |
+| `--text-dim` | `#5a6573` | captions, footers, mono labels |
+| `--accent` | `#38bdf8` | the signal blue; links, kickers, the eye |
+| `--accent-dim` | `#1f7fb0` | hover borders, pressed states |
 | `--accent-glow` | `color-mix(--accent 22%, transparent)` | glows, focus rings |
-| `--hairline` | `#1a1e24` | borders, the console grid |
-| `--hairline-strong` | `#262c34` | emphasized borders, panel edges |
-| `--on-accent` | `#06140b` | text on signal-green buttons |
+| `--hairline` | `#1a2230` | borders, the console grid |
+| `--hairline-strong` | `#232c3a` | emphasized borders, panel edges |
+| `--on-accent` | `#061320` | text on accent buttons |
 | `--danger` | `#ef4444` | error/red LED |
-| `--warn` | `#f59e0b` | caution/amber LED |
+| `--warn` | `#d8a657` | caution/amber LED, WIP badges |
 
-The signal green is the only chromatic accent. Status LEDs (red/amber/green) appear
-on console panels only, never as decoration on body copy.
+The signal blue `#38bdf8` is the only chromatic accent, on every Lidless surface
+(site, OG cards, banners). Terminal green may appear inside console art only, as
+status-LED and ok-value flavor, never as a kicker, motto, or copy color. Status
+LEDs (red/amber/green) appear on console panels only, never as decoration on
+body copy.
 
 ## Typography
 
-- **Display**: Inter Variable, weight 700-800, `letter-spacing` slightly negative.
-  Headlines and the `LIDLESS` wordmark only.
+- **Display**: Instrument Sans for body and headlines; the `LIDLESS` wordmark and
+  display headings use IBM Plex Mono 600 with `letter-spacing: 0.06em`.
 - **Mono**: IBM Plex Mono 400/500/600. Labels, file paths, code, captions,
   kickers, status panels, anything machine-flavored.
 
@@ -55,7 +59,7 @@ No handwriting or decorative faces. This is a console.
 
 ## Section conventions
 
-- Sections open with a mono, uppercase, letterspaced, signal-green kicker.
+- Sections open with a mono, uppercase, letterspaced, accent-blue kicker.
 - Bands alternate `--bg` and `--bg-panel-2`, separated by a `--hairline` border.
 - Centered display headline, then a `--text-muted` standfirst capped at a readable
   measure.
@@ -63,14 +67,17 @@ No handwriting or decorative faces. This is a console.
 
 ## Shared primitives
 
-- **The eye SVG.** Almond aperture (`M ... Z`), iris ring, pupil, watch glint, all
-  stroked/filled in signal green on the dark ground, with a soft green drop-shadow.
+- **The eye SVG.** Two canonical forms, both accent blue on the dark ground: the
+  ring mark (socket ring, panel, iris ring, pupil) in the favicon and nav, and the
+  almond aperture (iris ring, pupil, watch glint) on the OG card. The hero eye on
+  lidless.dev is the dimensional variant of the ring mark; it never carries brass,
+  gold, rivets, or hardware of any kind.
 - **Console panel.** Dark panel (`--bg-panel`) with a `--hairline-strong` border, a
   title bar carrying three status LEDs (red/amber/green) and a mono uppercase title,
   a body of `key  value` rows (green value = ok), and a mono footer rule.
 - **Tool card.** Dark panel, lifecycle badge (Active / WIP / Experimental), one-line
-  description, mono repo/npm links; hover lifts the green border and glow.
-- **Console grid.** A faint hairline grid + a single radial signal-green glow behind
+  description, mono repo/npm links; hover lifts the accent border and glow.
+- **Console grid.** A faint hairline grid + a single radial accent glow behind
   the page, so it reads "watch console", not "marketing page".
 
 ## Motion rules
@@ -82,7 +89,7 @@ No handwriting or decorative faces. This is a console.
 
 ## Accessibility (WCAG AA)
 
-- **Contrast.** On the dark ground the signal green and dim text must clear 4.5:1
+- **Contrast.** On the dark ground the accent blue and dim text must clear 4.5:1
   for any text use. Use `--text-muted` (not `--text-dim`) for meaningful body text;
   `--text-dim` is for large or decorative captions only.
 - **Headings descend.** One `h1` (hero), each section opens with an `h2`, cards use
@@ -102,7 +109,7 @@ No handwriting or decorative faces. This is a console.
 
 ## Stack
 
-Astro + Tailwind 4 (vite plugin), fonts via Fontsource
-(`@fontsource-variable/inter`, `@fontsource/ibm-plex-mono`), deployed on Vercel.
+Astro + Tailwind 4 (vite plugin), fonts (Instrument Sans + IBM Plex Mono) via a
+Google Fonts `<link>` in `BaseLayout.astro`, deployed on Vercel.
 Components are `.astro` files with scoped styles; shared tokens live in
 `src/styles/global.css`.
