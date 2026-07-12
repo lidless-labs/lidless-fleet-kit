@@ -7,7 +7,8 @@
   "scripts": {
     "og": "node og/render.mjs",
     "banner": "node banner/build-prompt.mjs",
-    "test": "node --test banner/*.test.mjs",
+    "workflow": "node workflow/render.mjs",
+    "test": "node --test banner/*.test.mjs workflow/*.test.mjs",
     "sync": "node bin/sync-versions.mjs",
     "sync:dry": "node bin/sync-versions.mjs --dry",
     "sync:fleet": "bin/fleet-sync.sh",

@@ -25,7 +25,7 @@ The look is code. A great horned owl, a cyan accent, a cream-paper watercolor, o
   <img src="docs/assets/lidless-fleet-kit.svg" alt="Recording: npm run banner prints a tool's text-only image prompt, npm test reports 21 passing" width="760">
 </p>
 
-<p align="center"><em><code>npm run banner</code> builds one tool's text-only image prompt; <code>npm test</code> guards the look contract.</em></p>
+<p align="center"><em><code>npm run banner</code> builds one tool's text-only image prompt; <code>npm test</code> guards the look contracts.</em></p>
 
 ## What it does
 
@@ -34,6 +34,7 @@ You market one hub (`lidless.dev`) and the tools it watches over. Four things ha
 - **One OG preview theme.** The link-preview card is rendered from a single dark-watch template (`og/template.html`) and a content map (`og/sites.json`): terminal-dark ground, one signal accent, the lidless-eye motif, the `LIDLESS` wordmark, the `The eye does not close.` motto. Change the theme once, regenerate.
 - **One banner pipeline.** Every tool's README banner is built from one shared style (`banner/style.json`) plus a per-tool brief (`banner/briefs.json`) into a text-only image prompt: a great horned owl working one legible dashboard, cyan accent, cream watercolor. Frozen anchors and a test suite keep it from drifting. See [Banners](#banners).
 - **One SEO head.** `seo/Seo.astro` + `seo/seo.ts` are the canonical `<head>` (title, description, canonical, Open Graph, Twitter, JSON-LD, theme-color), copied into the site and validated by `bin/seo-validate.mjs`.
+- **One workflow style.** `workflow/render.mjs` turns compact JSON into dark-watch SVG workflow cards for READMEs, so diagrams stay consistent without Mermaid sprawl.
 - **One routine.** `bin/fleet-sync.sh` fast-forwards the checkout, syncs tool versions from GitHub releases, regenerates the card, syncs the SEO head, builds, validates, and commits and pushes only if something changed. Safe on a timer; a no-op run touches nothing.
 
 The canonical design system is in [`DESIGN.md`](DESIGN.md); the image-style contract (og-card vs README banner, the owl + cyan watercolor) is in [`ILLUSTRATION.md`](ILLUSTRATION.md).
@@ -55,6 +56,7 @@ npm install   # playwright-core (reuses an existing Chromium build); no other ru
 ```bash
 npm run og                  # regenerate the OG card from the shared theme
 npm run banner -- wazuh-mcp # print the text-only image prompt for one tool's banner
+npm run workflow -- docs/assets/workflows/lidless-fleet-routine.json docs/assets/lidless-fleet-routine.svg
 npm test                    # check the banner look contract (palette, anchors, grammar)
 npm run sync:dry            # preview tool-version changes, write nothing
 npm run sync                # write the VERSIONS map into the site's src/lib/tools.ts
@@ -62,6 +64,14 @@ npm run fleet               # the full routine: pull + sync + render + seo + bui
 ```
 
 `og/render.mjs` resolves a Chromium binary from the Playwright cache (falling back to system Chrome), so there is no web server in the loop (cron-safe).
+
+## Workflow cards
+
+![Lidless fleet routine workflow: npm run fleet pulls and syncs versions, renders shared assets, updates lidless.dev, validates the site, then pushes only if something changed](docs/assets/lidless-fleet-routine.svg)
+
+Generated from [`docs/assets/workflows/lidless-fleet-routine.json`](docs/assets/workflows/lidless-fleet-routine.json) with `npm run workflow`.
+
+Workflow cards are for flow, not proof. They sit in feature sections after the proof asset and use the dark-watch console style from `DESIGN.md`: cyan signal arrows, high-contrast mono labels, and amber only for review or caution gates. The source schema lives in [`workflow/schema.md`](workflow/schema.md).
 
 ## Banners
 
@@ -105,9 +115,10 @@ ILLUSTRATION.md      image style: og-card vs README banner, owl + cyan watercolo
 sites.config.json    the hub + its tools (repo + version source)
 og/                  OG card template, copy, and headless renderer (2400x1260)
 banner/              the watercolor banner pipeline (style + briefs + prompt builder + tests)
+workflow/            the dark-watch workflow card renderer (JSON source -> SVG)
 seo/                 the shared <head>, JSON-LD builders, robots template, the SEO contract
 bin/                 sync-versions, seo-validate, fleet-sync (the headless routine)
-docs/assets/         the proof recording + sample banners
+docs/assets/         the proof recording, sample banners, generated workflow cards
 ```
 
 ## Project

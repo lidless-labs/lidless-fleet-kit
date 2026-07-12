@@ -1,0 +1,67 @@
+{
+  "kicker": "LIDLESS · FLEET ROUTINE",
+  "title": "one kit keeps the watch consistent",
+  "subtitle": "Fast-forward the hub, sync versions, render shared assets, validate the public surface, then push only real changes.",
+  "footer": "source json · generated svg · no mermaid drift",
+  "lanes": [
+    { "id": "input", "label": "INPUT" },
+    { "id": "kit", "label": "KIT" },
+    { "id": "site", "label": "SITE" },
+    { "id": "gate", "label": "GATE" }
+  ],
+  "nodes": [
+    {
+      "id": "sync",
+      "lane": "input",
+      "row": 0,
+      "title": "npm run fleet",
+      "meta": "pull, sync, render, validate",
+      "status": "source"
+    },
+    {
+      "id": "versions",
+      "lane": "kit",
+      "row": 0,
+      "title": "sync versions",
+      "meta": "GitHub releases → tools map"
+    },
+    {
+      "id": "assets",
+      "lane": "kit",
+      "row": 1,
+      "title": "render shared assets",
+      "meta": "OG card, SEO head, workflow SVG"
+    },
+    {
+      "id": "hub",
+      "lane": "site",
+      "row": 0,
+      "title": "lidless.dev",
+      "meta": "one hub, one catalog",
+      "status": "focus"
+    },
+    {
+      "id": "validate",
+      "lane": "gate",
+      "row": 0,
+      "title": "validate",
+      "meta": "build, SEO, content guard",
+      "status": "gate"
+    },
+    {
+      "id": "push",
+      "lane": "gate",
+      "row": 1,
+      "title": "push if changed",
+      "meta": "no-op run touches nothing"
+    }
+  ],
+  "edges": [
+    { "from": "sync", "to": "versions" },
+    { "from": "versions", "to": "assets" },
+    { "from": "versions", "to": "hub" },
+    { "from": "assets", "to": "hub" },
+    { "from": "hub", "to": "validate" },
+    { "from": "validate", "to": "push" }
+  ]
+}

@@ -53,6 +53,23 @@ Every image proof gets a caption directly beneath it:
 
 One line, naming the command and the outcome. Alt text on recordings starts with `Recording:` and describes what happens. Keep terminal recordings at or under 90 columns.
 
+## Workflow cards
+
+Workflow cards explain flow inside feature sections. They do not replace the slot 7 proof asset.
+
+Use the fleet kit renderer when a workflow diagram is needed:
+
+```md
+![<repo> workflow: <plain-language description of the flow>](docs/assets/<name>-workflow.svg)
+
+Generated from [`docs/assets/workflows/<name>.json`](docs/assets/workflows/<name>.json) with `lidless workflow`.
+```
+
+- Commit both `docs/assets/workflows/<name>.json` and the generated SVG.
+- Use Lidless dark-watch styling from `workflow/render.mjs`: dark console panels, cyan signal arrows, high-contrast mono labels, amber only for review or caution gates.
+- Keep labels short enough to read on GitHub. If a card needs paragraph text, cut the diagram scope.
+- Never use Mermaid for a public README flow once the repo has a generated workflow card.
+
 ## Badges
 
 shieldcn (`shieldcn.dev`), in this order: CI, registry version, MCP server tag (where it applies), license. `img.shields.io` is retired fleet-wide.
