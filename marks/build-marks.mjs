@@ -1,17 +1,16 @@
 #!/usr/bin/env node
-// Stamp the shared Lidless "eye" mark for every repo in the fleet roster.
+// Stamp the shared Lidless owl logo for every repo in the fleet roster.
 //
-// Lidless is deliberately one owl, one accent color (see DESIGN.md). Unlike a
-// fleet of per-tool logos, every repo carries the SAME mark: it is the fleet
-// identity token, the way a favicon is. Per-repo distinction is the mono name
-// label next to it, never a recolor. So this generator is a fan-out stamp, not
-// a per-tool designer: it copies marks/mark.svg to dist/<slug>-circle.svg for
-// each roster entry (with a per-repo <title>/aria-label for screen readers) and
-// enforces the palette so a stray color can never slip into the fleet mark.
+// The mark is the org's GitHub logo: the watercolor great horned owl
+// (`marks/lidless-owl.png`, the circular-cropped org avatar). Lidless is one
+// owl, reused everywhere like a favicon, so this is a fan-out copy, not a
+// per-tool designer: it writes an identical `dist/<slug>-circle.png` for each
+// roster entry. Repos are told apart by the mono name label beside the mark,
+// never by a different mark.
 //
 // Usage:
 //   node marks/build-marks.mjs            # write dist/ + manifest.json
-//   node marks/build-marks.mjs --check    # fail if dist/ is stale or off-palette, write nothing
+//   node marks/build-marks.mjs --check    # fail if dist/ is stale, write nothing
 //
 // No dependencies. Deterministic: same inputs -> byte-identical output.
 
@@ -20,51 +19,9 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const CANONICAL = join(HERE, "mark.svg");
+const LOGO = join(HERE, "lidless-owl.png");
 const ROSTER = join(HERE, "fleet.json");
 const DIST = join(HERE, "dist");
-
-// The only colors any Lidless mark may contain: the dark grounds, the hairlines,
-// the single signal-blue accent, and the white glint. Everything is lower-cased
-// before the check. Keep in lockstep with DESIGN.md tokens.
-const PALETTE = new Set([
-  "#0a0a0c", // favicon ground
-  "#0a0e15", // page ground
-  "#0d1119", // panel
-  "#111824", // panel-2
-  "#1a2230", // hairline
-  "#232c3a", // hairline-strong
-  "#1d2733", // owl slate-navy fill
-  "#1f7fb0", // accent-dim
-  "#38bdf8", // accent (the only chroma)
-  "#f4f7fa", // white glint
-]);
-
-function hexColors(svg) {
-  return (svg.match(/#[0-9a-fA-F]{3,8}\b/g) || []).map((c) => c.toLowerCase());
-}
-
-function assertPalette(svg, label) {
-  const bad = hexColors(svg).filter((c) => !PALETTE.has(c));
-  if (bad.length) {
-    throw new Error(
-      `${label}: off-palette color(s) [${[...new Set(bad)].join(", ")}]. ` +
-        `The Lidless mark is one accent (#38bdf8); never recolor per tool.`,
-    );
-  }
-}
-
-function assertShape(svg, label) {
-  if (!svg.includes('viewBox="0 0 80 80"')) throw new Error(`${label}: viewBox must be "0 0 80 80"`);
-  if (!/width="40"/.test(svg)) throw new Error(`${label}: width must be 40`);
-}
-
-// One mark per repo: the canonical SVG with a repo-specific title + aria-label.
-function markFor(canonical, slug) {
-  return canonical
-    .replace(/<title>[^<]*<\/title>/, `<title>${slug}</title>`)
-    .replace(/aria-label="[^"]*"/, `aria-label="${slug}, a Lidless Labs tool"`);
-}
 
 function loadRoster() {
   const roster = JSON.parse(readFileSync(ROSTER, "utf8"));
@@ -75,19 +32,13 @@ function loadRoster() {
 }
 
 function build() {
-  const canonical = readFileSync(CANONICAL, "utf8");
-  assertShape(canonical, "mark.svg");
-  assertPalette(canonical, "mark.svg");
-
+  if (!existsSync(LOGO)) throw new Error("marks/lidless-owl.png is missing (the circular org logo).");
+  const logo = readFileSync(LOGO); // Buffer
   const slugs = loadRoster();
-  const files = {};
-  for (const slug of slugs) {
-    const svg = markFor(canonical, slug);
-    assertPalette(svg, `${slug}-circle.svg`);
-    files[`${slug}-circle.svg`] = svg;
-  }
+  const files = {}; // name -> Buffer
+  for (const slug of slugs) files[`${slug}-circle.png`] = logo;
   const manifest = JSON.stringify(
-    { count: slugs.length, marks: slugs.map((s) => `${s}-circle.svg`) },
+    { count: slugs.length, source: "lidless-owl.png", marks: slugs.map((s) => `${s}-circle.png`) },
     null,
     2,
   ) + "\n";
@@ -97,7 +48,7 @@ function build() {
 function writeDist({ files, manifest }) {
   if (existsSync(DIST)) rmSync(DIST, { recursive: true });
   mkdirSync(DIST, { recursive: true });
-  for (const [name, svg] of Object.entries(files)) writeFileSync(join(DIST, name), svg);
+  for (const [name, buf] of Object.entries(files)) writeFileSync(join(DIST, name), buf);
   writeFileSync(join(DIST, "manifest.json"), manifest);
 }
 
@@ -107,8 +58,8 @@ function checkDist({ files, manifest }) {
   const expected = new Set([...Object.keys(files), "manifest.json"]);
   for (const name of expected) {
     if (!onDisk.has(name)) throw new Error(`dist/ is stale: missing ${name}. Run: npm run marks`);
-    const want = name === "manifest.json" ? manifest : files[name];
-    if (readFileSync(join(DIST, name), "utf8") !== want) {
+    const want = name === "manifest.json" ? Buffer.from(manifest) : files[name];
+    if (!readFileSync(join(DIST, name)).equals(want)) {
       throw new Error(`dist/ is stale: ${name} differs. Run: npm run marks`);
     }
   }
@@ -120,10 +71,10 @@ function checkDist({ files, manifest }) {
 const built = build();
 if (process.argv.includes("--check")) {
   checkDist(built);
-  console.log(`marks: dist/ is current (${built.manifest.match(/"count": (\d+)/)[1]} marks, on palette)`);
+  console.log(`marks: dist/ is current (${built.manifest.match(/"count": (\d+)/)[1]} marks)`);
 } else {
   writeDist(built);
-  console.log(`marks: wrote ${Object.keys(built.files).length} marks to marks/dist/`);
+  console.log(`marks: wrote ${Object.keys(built.files).length} owl marks to marks/dist/`);
 }
 
-export { build, markFor, assertPalette, assertShape, PALETTE };
+export { build, loadRoster, LOGO };

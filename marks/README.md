@@ -1,28 +1,23 @@
 # Fleet marks
 
-The shared **owl** mark that threads every Lidless Labs repo back to the hub. One
-owl, one accent color. This is the fleet identity token, the way a favicon is.
-It is not a per-tool logo and is never recolored per tool: repos are told apart
-by the mono name label next to the mark, not by the mark itself.
+The shared **owl** logo that threads every Lidless Labs repo back to the hub. One
+owl, reused everywhere like a favicon. This is the org's GitHub logo, not a
+per-tool mark, and it is never swapped per tool: repos are told apart by the mono
+name label next to it, never by a different mark.
 
-- `mark.svg` is the canonical art: a great horned owl in a watch bezel, drawn
-  natively at 80x80 for crisp 40px use. Its eyes reuse the lidless-eye geometry
-  so the mark reads as one family with the site. Palette follows `DESIGN.md`;
-  `#38bdf8` is the only chroma.
+- `lidless-owl.png` is the canonical logo: the watercolor great horned owl (the
+  org GitHub avatar), circular-cropped to a 256px disc with transparent corners
+  so it sits on any ground.
 - `fleet.json` is the roster: every public product repo, grouped like the org
   profile. The same roster drives the "Part of Lidless Labs" footer.
-- `dist/<slug>-circle.svg` is generated, one per roster entry (identical art, a
-  per-repo `<title>`/`aria-label` for screen readers).
+- `dist/<slug>-circle.png` is generated, one identical copy per roster entry.
 
 ## Regenerate
 
 ```bash
 npm run marks          # write marks/dist/ + manifest.json
-npm run marks -- --check   # CI: fail if dist/ is stale or off-palette
+npm run marks:check    # CI: fail if dist/ is stale
 ```
-
-`build-marks.mjs` enforces the palette and shape, so a stray color or a wrong
-viewBox fails the build instead of shipping.
 
 ## Put a mark in a repo
 
@@ -35,6 +30,11 @@ slot):
 
 ```html
 <p align="center">
-  <a href="https://lidless.dev"><img src="docs/assets/marks/soc-stack-circle.svg" width="40" alt="Lidless Labs"></a>
+  <a href="https://lidless.dev"><img src="docs/assets/marks/soc-stack-circle.png" width="48" alt="Lidless Labs"></a>
 </p>
 ```
+
+## Updating the logo
+
+Replace `lidless-owl.png` (keep it a circular-cropped PNG matching the GitHub org
+avatar), then run `npm run marks` to restamp `dist/`.

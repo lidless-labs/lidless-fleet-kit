@@ -15,7 +15,7 @@ Required sections, in this order. Feature sections in the middle are free-form. 
 | # | Section | Notes |
 |---|---|---|
 | 1 | Banner | `<p align="center"><img src="docs/assets/<name>-social-preview.jpg" width="900"></p>` |
-| 2 | Fleet mark | `<p align="center"><a href="https://lidless.dev"><img src="docs/assets/marks/<name>-circle.svg" width="40" alt="Lidless Labs"></a></p>` - the shared owl, links to the hub. See Fleet mark below. |
+| 2 | Fleet mark | `<p align="center"><a href="https://lidless.dev"><img src="docs/assets/marks/<name>-circle.png" width="48" alt="Lidless Labs"></a></p>` - the shared owl logo, links to the hub. See Fleet mark below. |
 | 3 | `<h1 align="center">Name</h1>` | Product name only, no tagline |
 | 4 | Bold one-liner | `<p align="center"><strong>…</strong></p>` - one sentence: what it does, for whom, how it differs |
 | 5 | Links line | `<p align="center">` lidless.dev page · Docs · Quickstart anchor, `&middot;`-separated |
@@ -74,11 +74,11 @@ shieldcn (`shieldcn.dev`), in this order: CI, registry version, MCP server tag (
 
 ## Fleet mark
 
-The owl in slot 2 is the shared fleet mark: one owl, one accent color, the same for every repo. It is the fleet's favicon, not a per-tool logo, and is never recolored or redrawn per tool. Repos are told apart by the mono name label beside it, never by the mark.
+The owl in slot 2 is the shared fleet mark: the org's GitHub logo, the same for every repo. It is the fleet's favicon, not a per-tool mark, and is never swapped per tool. Repos are told apart by the mono name label beside it, never by the mark.
 
-- The mark is generated in this kit: `marks/mark.svg` is the canonical art, `npm run marks` stamps `marks/dist/<slug>-circle.svg` for every repo in `marks/fleet.json`.
-- Put it in a repo with `node bin/stamp-marks.mjs --repo <path> --slug <slug>`, which writes `docs/assets/marks/<slug>-circle.svg`. Reference that local copy, never hotlink another repo's mark.
-- `npm run marks:check` guards the palette (`#38bdf8` is the only chroma) and the 80x80 / width-40 shape, so a recolored or misshapen mark fails CI.
+- The mark is the org logo in this kit: `marks/lidless-owl.png` is the canonical art (the circular-cropped watercolor owl avatar), and `npm run marks` stamps `marks/dist/<slug>-circle.png` for every repo in `marks/fleet.json`.
+- Put it in a repo with `node bin/stamp-marks.mjs --repo <path> --slug <slug>`, which writes `docs/assets/marks/<slug>-circle.png`. Reference that local copy, never hotlink another repo's mark.
+- `npm run marks:check` fails CI if `dist/` drifts from the roster or the logo. To change the logo, replace `marks/lidless-owl.png` and rerun `npm run marks`.
 
 ## Motto and vocabulary
 

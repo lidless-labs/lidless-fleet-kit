@@ -1,57 +1,36 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { build, markFor, assertPalette, PALETTE } from "./build-marks.mjs";
+import { build, loadRoster, LOGO } from "./build-marks.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const roster = JSON.parse(readFileSync(join(HERE, "fleet.json"), "utf8"));
-const slugs = roster.categories.flatMap((c) => c.repos);
+const slugs = loadRoster();
 
-test("canonical mark.svg is on palette and correctly shaped", () => {
-  const svg = readFileSync(join(HERE, "mark.svg"), "utf8");
-  assert.doesNotThrow(() => assertPalette(svg, "mark.svg"));
-  assert.match(svg, /viewBox="0 0 80 80"/);
-  assert.match(svg, /width="40"/);
+test("the owl logo source exists and is a PNG", () => {
+  assert.ok(existsSync(LOGO), "marks/lidless-owl.png must exist");
+  const sig = readFileSync(LOGO).subarray(0, 8);
+  assert.deepEqual([...sig], [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a], "not a PNG");
 });
 
 test("build emits exactly one mark per roster entry", () => {
   const { files } = build();
   assert.equal(Object.keys(files).length, slugs.length);
-  for (const slug of slugs) assert.ok(files[`${slug}-circle.svg`], `missing ${slug}-circle.svg`);
+  for (const slug of slugs) assert.ok(files[`${slug}-circle.png`], `missing ${slug}-circle.png`);
 });
 
-test("every emitted mark is on palette (no per-tool recolor)", () => {
+test("every emitted mark is the identical owl logo (one owl, fleet-wide)", () => {
   const { files } = build();
-  for (const [name, svg] of Object.entries(files)) {
-    assert.doesNotThrow(() => assertPalette(svg, name));
+  const logo = readFileSync(LOGO);
+  for (const [name, buf] of Object.entries(files)) {
+    assert.ok(buf.equals(logo), `${name} is not the canonical logo`);
   }
 });
 
-test("an off-palette color is rejected", () => {
-  const bad = readFileSync(join(HERE, "mark.svg"), "utf8").replace("#38bdf8", "#ff0000");
-  assert.throws(() => assertPalette(bad, "tampered"), /off-palette/);
-});
-
-test("the mark art uses exactly one chroma: #38bdf8", () => {
-  // The brand rule is about the drawn mark, not the allowlist (which also holds
-  // the dimmer accent #1f7fb0 for hover states). Scan the owl itself: the only
-  // saturated color it paints must be the signal blue.
-  const svg = readFileSync(join(HERE, "mark.svg"), "utf8");
-  const isChroma = (c) => {
-    const r = parseInt(c.slice(1, 3), 16), g = parseInt(c.slice(3, 5), 16), b = parseInt(c.slice(5, 7), 16);
-    const max = Math.max(r, g, b), min = Math.min(r, g, b);
-    return max - min > 40 && max > 80; // saturated and bright enough to read as a color
-  };
-  const chroma = [...new Set((svg.match(/#[0-9a-fA-F]{6}\b/g) || []).map((c) => c.toLowerCase()))].filter(isChroma);
-  assert.deepEqual(chroma, ["#38bdf8"]);
-});
-
-test("per-repo mark carries the repo title and aria-label", () => {
-  const svg = markFor(readFileSync(join(HERE, "mark.svg"), "utf8"), "wazuh-mcp");
-  assert.match(svg, /<title>wazuh-mcp<\/title>/);
-  assert.match(svg, /aria-label="wazuh-mcp, a Lidless Labs tool"/);
+test("marks are named <slug>-circle.png, matching the fleet convention", () => {
+  const { files } = build();
+  for (const name of Object.keys(files)) assert.match(name, /^[a-z0-9-]+-circle\.png$/);
 });
 
 test("roster has no duplicate repos", () => {
