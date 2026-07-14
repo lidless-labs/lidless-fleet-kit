@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="40" height="40" role="img" aria-label="jellyctrl, a Lidless Labs tool">
+  <title>jellyctrl</title>
+  <!-- Lidless fleet mark: the great horned owl in a watch bezel. The owl is the
+       fleet identity; its eyes reuse the lidless-eye geometry so the mark reads
+       as one family with the site. One accent color (#38bdf8) per DESIGN.md.
+       Never recolor this per tool. Drawn natively at 80x80 for crisp 40px use. -->
+  <circle cx="40" cy="40" r="38.6" fill="#0a0e15" stroke="#232c3a" stroke-width="1.4"/>
+  <circle cx="40" cy="40" r="33" fill="none" stroke="#1a2230" stroke-width="1"/>
+
+  <!-- horn tufts -->
+  <path d="M22 20 C30 26 35 32 38 39 L31 43 C28 34 25 27 22 20 Z"
+        fill="#1d2733" stroke="#38bdf8" stroke-width="1.4" stroke-linejoin="round"/>
+  <path d="M58 20 C50 26 45 32 42 39 L49 43 C52 34 55 27 58 20 Z"
+        fill="#1d2733" stroke="#38bdf8" stroke-width="1.4" stroke-linejoin="round"/>
+
+  <!-- brow chevron -->
+  <path d="M31 43 Q40 36 49 43 L46 47 Q40 42 34 47 Z"
+        fill="#1d2733" stroke="#38bdf8" stroke-width="1.3" stroke-linejoin="round"/>
+
+  <!-- eyes: lidless-eye ring geometry (socket / panel / iris ring / pupil / glint) -->
+  <g>
+    <circle cx="31" cy="47" r="10" fill="#1d2733" stroke="#38bdf8" stroke-width="1.7"/>
+    <circle cx="31" cy="47" r="3.6" fill="none" stroke="#38bdf8" stroke-width="1.4"/>
+    <circle cx="31" cy="47" r="1.5" fill="#38bdf8"/>
+    <circle cx="29.6" cy="45.6" r="0.8" fill="#f4f7fa"/>
+  </g>
+  <g>
+    <circle cx="49" cy="47" r="10" fill="#1d2733" stroke="#38bdf8" stroke-width="1.7"/>
+    <circle cx="49" cy="47" r="3.6" fill="none" stroke="#38bdf8" stroke-width="1.4"/>
+    <circle cx="49" cy="47" r="1.5" fill="#38bdf8"/>
+    <circle cx="47.6" cy="45.6" r="0.8" fill="#f4f7fa"/>
+  </g>
+
+  <!-- beak -->
+  <path d="M37 58 Q40 56 43 58 L40 65 Z"
+        fill="#1d2733" stroke="#38bdf8" stroke-width="1.3" stroke-linejoin="round"/>
+</svg>

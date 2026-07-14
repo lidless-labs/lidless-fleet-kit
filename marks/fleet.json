@@ -1,0 +1,23 @@
+{
+  "_comment": "The Lidless Labs fleet roster: every public product repo, grouped exactly like the org profile (lidless-labs/.github). build-marks.mjs stamps the shared eye mark for each entry as dist/<slug>-circle.svg; the same roster drives the 'Part of Lidless Labs' footer. Keep in sync with the org profile categories. Infra repos (lidless-fleet-kit, effect-operator-kit) are intentionally omitted: they are the rack, not the instruments.",
+  "hub": { "name": "Lidless Labs", "url": "https://lidless.dev" },
+  "flagship": "soc-stack",
+  "categories": [
+    {
+      "name": "Security / SOC",
+      "repos": ["soc-stack", "wazuh-mcp", "misp-mcp", "suricata-mcp", "thehive-mcp", "cortex-mcp", "mitre-mcp", "zeek-mcp", "hotwash"]
+    },
+    {
+      "name": "Threat Intelligence & OSINT",
+      "repos": ["cyberbrief", "intel-workbench", "maltego-mcp", "vervet"]
+    },
+    {
+      "name": "Network",
+      "repos": ["librenmsctrl", "n8nctrl", "watchtower", "portgrid", "cutsheet", "eero-cli"]
+    },
+    {
+      "name": "Homelab",
+      "repos": ["proxmox-mcp", "adguardctrl", "immichctrl", "jellyctrl", "proxguard", "samba-ad-migration"]
+    }
+  ]
+}

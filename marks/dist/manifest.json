@@ -1,0 +1,30 @@
+{
+  "count": 25,
+  "marks": [
+    "soc-stack-circle.svg",
+    "wazuh-mcp-circle.svg",
+    "misp-mcp-circle.svg",
+    "suricata-mcp-circle.svg",
+    "thehive-mcp-circle.svg",
+    "cortex-mcp-circle.svg",
+    "mitre-mcp-circle.svg",
+    "zeek-mcp-circle.svg",
+    "hotwash-circle.svg",
+    "cyberbrief-circle.svg",
+    "intel-workbench-circle.svg",
+    "maltego-mcp-circle.svg",
+    "vervet-circle.svg",
+    "librenmsctrl-circle.svg",
+    "n8nctrl-circle.svg",
+    "watchtower-circle.svg",
+    "portgrid-circle.svg",
+    "cutsheet-circle.svg",
+    "eero-cli-circle.svg",
+    "proxmox-mcp-circle.svg",
+    "adguardctrl-circle.svg",
+    "immichctrl-circle.svg",
+    "jellyctrl-circle.svg",
+    "proxguard-circle.svg",
+    "samba-ad-migration-circle.svg"
+  ]
+}
