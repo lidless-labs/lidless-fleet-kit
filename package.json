@@ -7,7 +7,9 @@
   "scripts": {
     "og": "node og/render.mjs",
     "banner": "node banner/build-prompt.mjs",
-    "test": "node --test banner/*.test.mjs",
+    "marks": "node marks/build-marks.mjs",
+    "marks:check": "node marks/build-marks.mjs --check",
+    "test": "node --test banner/*.test.mjs marks/*.test.mjs",
     "sync": "node bin/sync-versions.mjs",
     "sync:dry": "node bin/sync-versions.mjs --dry",
     "sync:fleet": "bin/fleet-sync.sh",

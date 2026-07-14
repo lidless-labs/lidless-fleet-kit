@@ -13,9 +13,12 @@ single electric-blue accent, monospace labels, and quiet hairline grids.
 
 - **Dark only.** The unsleeping eye does not switch to a day mode. There is no
   light theme; `color-scheme: dark`.
-- **The eye is the logo.** An almond aperture with an iris ring, a pupil, and a
-  single watch glint. It appears in the favicon, the nav, and the OG card. Do not
-  redraw it ad hoc; reuse the SVG.
+- **Two marks, one DNA.** The great horned owl is the org and fleet mark (GitHub
+  avatar, repo READMEs via `marks/`, banners). The lidless eye is the site mark
+  (hero, favicon, nav). They are not competitors: the owl is who watches, the eye
+  is the watching, and the owl's eyes reuse the eye geometry so the family reads
+  as one. Neither appears in the other's slot. Do not redraw either ad hoc. Reuse
+  the SVGs. Full contract in `docs/owl-rebrand.md`.
 - **Vocabulary, used sparingly.** "The eye does not close", "watch", "the eye",
   "keeps watch", "always on". Say it in copy; never decorate with it.
 

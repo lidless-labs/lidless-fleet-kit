@@ -1,0 +1,31 @@
+{
+  "count": 25,
+  "source": "lidless-owl.png",
+  "marks": [
+    "soc-stack-circle.png",
+    "wazuh-mcp-circle.png",
+    "misp-mcp-circle.png",
+    "suricata-mcp-circle.png",
+    "thehive-mcp-circle.png",
+    "cortex-mcp-circle.png",
+    "mitre-mcp-circle.png",
+    "zeek-mcp-circle.png",
+    "hotwash-circle.png",
+    "cyberbrief-circle.png",
+    "intel-workbench-circle.png",
+    "maltego-mcp-circle.png",
+    "vervet-circle.png",
+    "librenmsctrl-circle.png",
+    "n8nctrl-circle.png",
+    "watchtower-circle.png",
+    "portgrid-circle.png",
+    "cutsheet-circle.png",
+    "eero-cli-circle.png",
+    "proxmox-mcp-circle.png",
+    "adguardctrl-circle.png",
+    "immichctrl-circle.png",
+    "jellyctrl-circle.png",
+    "proxguard-circle.png",
+    "samba-ad-migration-circle.png"
+  ]
+}

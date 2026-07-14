@@ -15,27 +15,28 @@ Required sections, in this order. Feature sections in the middle are free-form. 
 | # | Section | Notes |
 |---|---|---|
 | 1 | Banner | `<p align="center"><img src="docs/assets/<name>-social-preview.jpg" width="900"></p>` |
-| 2 | `<h1 align="center">Name</h1>` | Product name only, no tagline |
-| 3 | Bold one-liner | `<p align="center"><strong>…</strong></p>` - one sentence: what it does, for whom, how it differs |
-| 4 | Links line | `<p align="center">` lidless.dev page · Docs · Quickstart anchor, `&middot;`-separated |
-| 5 | Badges | shieldcn, see badge order below |
-| 6 | Hook line | One short plain-prose sentence. Optional but encouraged. |
-| 7 | Proof asset + caption | The tool visibly doing its headline job. See proof table. |
-| 8 | `## What it does` | First 3 sentences carry WHAT / WHY / HOW-IT-DIFFERS. One paragraph, no bullets. |
-| 9 | `## Install` | The install command(s) a reader actually runs. |
-| 10 | `## Try it in 60 seconds` | Copy-paste block, verified against the published artifact, ending in visible output. |
-| 11 | Feature sections | Free-form. Each major claim gets a real fenced output block or diagram. |
-| 12 | `## Why not <alternatives>?` | Honest comparison, named alternatives, no straw men. |
-| 13 | `## What <Name> is not` | Boundaries. What it refuses to do and why that is the point. |
-| 14 | `## Why I built this` | Optional. The watercolor owl art lives here as a secondary image. |
-| 15 | `## Docs` | Optional. Links into `docs/`. |
-| 16 | `## License` | License + project identity line (org, lidless.dev page, registry, command). |
+| 2 | Fleet mark | `<p align="center"><a href="https://lidless.dev"><img src="docs/assets/marks/<name>-circle.png" width="48" alt="Lidless Labs"></a></p>` - the shared owl logo, links to the hub. See Fleet mark below. |
+| 3 | `<h1 align="center">Name</h1>` | Product name only, no tagline |
+| 4 | Bold one-liner | `<p align="center"><strong>…</strong></p>` - one sentence: what it does, for whom, how it differs |
+| 5 | Links line | `<p align="center">` lidless.dev page · Docs · Quickstart anchor, `&middot;`-separated |
+| 6 | Badges | shieldcn, see badge order below |
+| 7 | Hook line | One short plain-prose sentence. Optional but encouraged. |
+| 8 | Proof asset + caption | The tool visibly doing its headline job. See proof table. |
+| 9 | `## What it does` | First 3 sentences carry WHAT / WHY / HOW-IT-DIFFERS. One paragraph, no bullets. |
+| 10 | `## Install` | The install command(s) a reader actually runs. |
+| 11 | `## Try it in 60 seconds` | Copy-paste block, verified against the published artifact, ending in visible output. |
+| 12 | Feature sections | Free-form. Each major claim gets a real fenced output block or diagram. |
+| 13 | `## Why not <alternatives>?` | Honest comparison, named alternatives, no straw men. |
+| 14 | `## What <Name> is not` | Boundaries. What it refuses to do and why that is the point. |
+| 15 | `## Why I built this` | Optional. The watercolor owl art lives here as a secondary image. |
+| 16 | `## Docs` | Optional. Links into `docs/`. |
+| 17 | `## License` | License + project identity line (org, lidless.dev page, registry, command). |
 
 Heading case is sentence case with a leading capital: `## Install`, never `## install`.
 
 ## Proof, not decoration
 
-The asset in slot 7 shows the tool doing the one thing the README promises. Setup, `--help`, and status output are not proof. The headline action is. Match the proof to the tool:
+The asset in slot 8 shows the tool doing the one thing the README promises. Setup, `--help`, and status output are not proof. The headline action is. Match the proof to the tool:
 
 | Tool type | Proof |
 |---|---|
@@ -68,8 +69,16 @@ shieldcn (`shieldcn.dev`), in this order: CI, registry version, MCP server tag (
 
 - README banner: `docs/assets/<name>-social-preview.jpg`, 2048x878 (21:9), embedded at `width="900"`.
 - The `-banner.jpg` naming is retired. Rename on touch.
-- Art follows `ILLUSTRATION.md`: one great horned owl working one legible dashboard, cyan accent, cream watercolor. The banner is identity, never the sole proof - slot 7 does that job.
+- Art follows `ILLUSTRATION.md`: one great horned owl working one legible dashboard, cyan accent, cream watercolor. The banner is identity, never the sole proof - slot 8 does that job.
 - New banners come from this repo's banner system (`banner/briefs.json` -> prompt -> crop) with a `.prompt.txt` provenance sidecar.
+
+## Fleet mark
+
+The owl in slot 2 is the shared fleet mark: the org's GitHub logo, the same for every repo. It is the fleet's favicon, not a per-tool mark, and is never swapped per tool. Repos are told apart by the mono name label beside it, never by the mark.
+
+- The mark is the org logo in this kit: `marks/lidless-owl.png` is the canonical art (the circular-cropped watercolor owl avatar), and `npm run marks` stamps `marks/dist/<slug>-circle.png` for every repo in `marks/fleet.json`.
+- Put it in a repo with `node bin/stamp-marks.mjs --repo <path> --slug <slug>`, which writes `docs/assets/marks/<slug>-circle.png`. Reference that local copy, never hotlink another repo's mark.
+- `npm run marks:check` fails CI if `dist/` drifts from the roster or the logo. To change the logo, replace `marks/lidless-owl.png` and rerun `npm run marks`.
 
 ## Motto and vocabulary
 
@@ -82,7 +91,7 @@ The fleet motto is "The eye does not close." Never "Constant Vigilance" anywhere
 | cutsheet, vervet | Homepage points at their own product domain, links line leads with it | Standalone products with their own sites |
 | lidless-fleet-kit | Banner slot shows a sample pipeline output | The kit's product is the banner system itself |
 | samba-ad-migration | Catalog/table proof, no image | Scripts repo, the runbook is the product |
-| .github | Profile README, no spine sections | Org profile, not a product page |
+| .github | Profile README, no spine sections, org banner instead of the fleet mark | Org profile, not a product page |
 
 Anything else that needs to deviate gets a row here first.
 
