@@ -17,7 +17,7 @@ single electric-blue accent, monospace labels, and quiet hairline grids.
   avatar, repo READMEs via `marks/`, banners). The lidless eye is the site mark
   (hero, favicon, nav). They are not competitors: the owl is who watches, the eye
   is the watching, and the owl's eyes reuse the eye geometry so the family reads
-  as one. Neither appears in the other's slot. Do not redraw either ad hoc; reuse
+  as one. Neither appears in the other's slot. Do not redraw either ad hoc. Reuse
   the SVGs. Full contract in `docs/owl-rebrand.md`.
 - **Vocabulary, used sparingly.** "The eye does not close", "watch", "the eye",
   "keeps watch", "always on". Say it in copy; never decorate with it.
