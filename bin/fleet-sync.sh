@@ -87,15 +87,18 @@ if ! git -C "$SITE_DIR" add -A \
   exit 1
 fi
 branch=$(git -C "$SITE_DIR" rev-parse --abbrev-ref HEAD)
-if git -C "$SITE_DIR" push --quiet origin "$branch" 2>/dev/null; then
-  echo "  $SITE: PUSHED ($branch)"
-else
+if ! git -C "$SITE_DIR" push --quiet origin "$branch" 2>/dev/null; then
+  # Keep the local commit for operator recovery; do not claim a publish or redeploy.
   echo "  $SITE: committed, PUSH FAILED"
+  echo "== done: 0 repo(s) updated"
+  exit 1
 fi
 
+echo "  $SITE: PUSHED ($branch)"
 echo "== done: 1 repo updated"
 
-# Best-effort chat ping. Silent no-op until agent-notify has a channel configured.
+# Best-effort chat ping only after the remote accepted the commit.
+# Silent no-op until agent-notify has a channel configured.
 if command -v agent-notify >/dev/null 2>&1; then
   agent-notify "lidless-sync: $SITE redeploying" >/dev/null 2>&1 || true
 fi
