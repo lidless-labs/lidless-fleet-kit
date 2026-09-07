@@ -11,10 +11,19 @@ KIT="$TMP/kit"
 SITE_NAME="lidless-site-fixture"
 SITE_DIR="$TMP/$SITE_NAME"
 PHASE_MARKER="$TMP/phase-ran"
+STUB_BIN="$TMP/stub-bin"
+REAL_GIT="$(command -v git)"
+REAL_NPM="$(command -v npm)"
+SCRIPT_UNDER_TEST="${FLEET_SYNC_SCRIPT:-$ROOT/bin/fleet-sync.sh}"
+SCRIPT_REVISION="${FLEET_SYNC_SCRIPT_REVISION:-}"
 
-mkdir -p "$KIT/bin" "$KIT/og" "$KIT/seo" "$SITE_DIR/src/components" "$SITE_DIR/src/lib"
+mkdir -p "$KIT/bin" "$KIT/og" "$KIT/seo" "$SITE_DIR/src/components" "$SITE_DIR/src/lib" "$STUB_BIN"
 
-cp "$ROOT/bin/fleet-sync.sh" "$KIT/bin/fleet-sync.sh"
+if [ -n "$SCRIPT_REVISION" ]; then
+  git -C "$ROOT" show "$SCRIPT_REVISION:bin/fleet-sync.sh" >"$KIT/bin/fleet-sync.sh"
+else
+  cp "$SCRIPT_UNDER_TEST" "$KIT/bin/fleet-sync.sh"
+fi
 chmod +x "$KIT/bin/fleet-sync.sh"
 
 cat >"$KIT/sites.config.json" <<EOF
@@ -45,6 +54,46 @@ cat >"$KIT/seo/seo.ts" <<'EOF'
 export {};
 EOF
 
+# Keep the regression isolated: record every later operation and short-circuit
+# network/build work so the pre-fix script can demonstrate the violation safely.
+cat >"$STUB_BIN/git" <<EOF
+#!/usr/bin/env bash
+set -euo pipefail
+args=("\$@")
+for arg in "\${args[@]}"; do
+  case "\$arg" in
+    pull|add|commit|push)
+      printf '%s\\n' "\$arg" >>"\$PHASE_MARKER"
+      if [ "\$arg" = pull ] || [ "\$arg" = push ]; then
+        exit 0
+      fi
+      break
+      ;;
+  esac
+done
+exec "$REAL_GIT" "\$@"
+EOF
+chmod +x "$STUB_BIN/git"
+
+cat >"$STUB_BIN/npm" <<EOF
+#!/usr/bin/env bash
+set -euo pipefail
+if [ "\${1:-}" = run ] && [ "\${2:-}" = build ]; then
+  printf 'build\\n' >>"\$PHASE_MARKER"
+  mkdir -p dist
+  exit 0
+fi
+exec "$REAL_NPM" "\$@"
+EOF
+chmod +x "$STUB_BIN/npm"
+
+cat >"$STUB_BIN/agent-notify" <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+printf 'agent-notify\n' >>"$PHASE_MARKER"
+EOF
+chmod +x "$STUB_BIN/agent-notify"
+
 # Minimal site checkout with one committed file, then an unrelated dirty edit.
 git -C "$SITE_DIR" init -q
 git -C "$SITE_DIR" config user.email "fleet-sync-test@example.com"
@@ -59,7 +108,7 @@ echo "local-only edit" >"$SITE_DIR/unrelated-dirty.txt"
 HEAD_BEFORE="$(git -C "$SITE_DIR" rev-parse HEAD)"
 
 set +e
-PHASE_MARKER="$PHASE_MARKER" "$KIT/bin/fleet-sync.sh" >"$TMP/stdout.txt" 2>"$TMP/stderr.txt"
+PATH="$STUB_BIN:$PATH" PHASE_MARKER="$PHASE_MARKER" "$KIT/bin/fleet-sync.sh" >"$TMP/stdout.txt" 2>"$TMP/stderr.txt"
 status=$?
 set -e
 
@@ -67,6 +116,10 @@ if [ "$status" -eq 0 ]; then
   echo "expected nonzero exit for dirty tree, got 0" >&2
   echo "--- stdout ---"; cat "$TMP/stdout.txt" >&2
   echo "--- stderr ---"; cat "$TMP/stderr.txt" >&2
+  if [ -f "$PHASE_MARKER" ]; then
+    echo "--- phases ---" >&2
+    cat "$PHASE_MARKER" >&2
+  fi
   exit 1
 fi
 
