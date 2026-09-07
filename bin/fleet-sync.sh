@@ -3,13 +3,14 @@
 #
 # Lidless is a SINGLE hub repo (lidless-site / lidless.dev), not a fleet of subdomains,
 # so this manages exactly one checkout. For that repo it:
-#   1. fast-forwards the local checkout to origin/main (only if clean)
-#   2. refreshes the tool VERSIONS map in src/lib/tools.ts from each tool's latest release
-#   3. regenerates the OG card from the one shared dark-watch template
-#   4. syncs the shared SEO head (Seo.astro + seo.ts) into the repo
-#   5. builds the site and runs the SEO validator against dist/
-#   6. commits and pushes only if something actually changed
-#   7. prints a short summary (so an OpenClaw cron can relay it)
+#   1. refuses the whole run if the site checkout is dirty (never clobber local work)
+#   2. fast-forwards the local checkout to origin/main
+#   3. refreshes the tool VERSIONS map in src/lib/tools.ts from each tool's latest release
+#   4. regenerates the OG card from the one shared dark-watch template
+#   5. syncs the shared SEO head (Seo.astro + seo.ts) into the repo
+#   6. builds the site and runs the SEO validator against dist/
+#   7. commits and pushes only if something actually changed
+#   8. prints a short summary (so an OpenClaw cron can relay it)
 #
 # Safe to run repeatedly: a no-op run touches nothing and pushes nothing.
 set -euo pipefail
@@ -28,24 +29,27 @@ if [ ! -d "$SITE_DIR/.git" ]; then
   exit 1
 fi
 
-# 1. refresh checkout (only if clean, never clobber local work)
+# Refuse before any write when the checkout is dirty. A later `git add -A` would
+# otherwise stage unrelated local edits into the routine sync commit.
 if [ -n "$(git -C "$SITE_DIR" status --porcelain)" ]; then
-  echo "  pull: dirty tree, skipping"
-else
-  git -C "$SITE_DIR" pull --ff-only --quiet origin main 2>/dev/null \
-    || git -C "$SITE_DIR" pull --ff-only --quiet origin master 2>/dev/null \
-    || true
+  echo "  $SITE: dirty tree; refusing sync (commit or stash local changes first)" >&2
+  exit 1
 fi
 
-# 2. version sync (writes the VERSIONS map in src/lib/tools.ts in place)
+# 2. refresh checkout
+git -C "$SITE_DIR" pull --ff-only --quiet origin main 2>/dev/null \
+  || git -C "$SITE_DIR" pull --ff-only --quiet origin master 2>/dev/null \
+  || true
+
+# 3. version sync (writes the VERSIONS map in src/lib/tools.ts in place)
 echo "== version sync"
 node bin/sync-versions.mjs | tee /tmp/lidless-sync-versions.json
 
-# 3. regenerate the OG card from the shared template
+# 4. regenerate the OG card from the shared template
 echo "== og render"
 node og/render.mjs >/dev/null
 
-# 4. sync the shared SEO head into the site. Seo.astro + seo.ts are host-agnostic
+# 5. sync the shared SEO head into the site. Seo.astro + seo.ts are host-agnostic
 # (they read Astro.site at build time), so it is safe to overwrite. Only touch the site
 # if it has already adopted the shared head (carries src/components/Seo.astro).
 echo "== seo sync"
@@ -57,7 +61,7 @@ else
   echo "  seo head not adopted (no src/components/Seo.astro), skipping"
 fi
 
-# 5. build + validate SEO. A build failure aborts before any commit.
+# 6. build + validate SEO. A build failure aborts before any commit.
 echo "== build + seo-validate"
 ( cd "$SITE_DIR" && npm run build >/tmp/lidless-build.log 2>&1 ) || {
   echo "  build FAILED (see /tmp/lidless-build.log); aborting before commit"
@@ -69,7 +73,7 @@ node bin/seo-validate.mjs "$SITE_DIR/dist" || {
   exit 1
 }
 
-# 6. commit + push only if something changed
+# 7. commit + push only if something changed
 echo "== publish"
 if [ -z "$(git -C "$SITE_DIR" status --porcelain)" ]; then
   echo "  $SITE: no change"
